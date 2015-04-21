@@ -105,7 +105,7 @@ function efKNAuthLinkEnd( $dummy, Title $target, array $options, &$html, array &
 		}
 		if( $next === null ) {
 			// No 'returnto' parameter was found, go to the main page.
-			$next = Title::newFromDBkey( wfMessage('mainpage')->plain() );
+			$next = Title::newMainPage();
 		}
 		$href = $wgKNAuthLoginURL . '?' . wfArrayToCgi( array(
 			'next' => $next->getLocalURL( $query ),
