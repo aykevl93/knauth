@@ -80,8 +80,12 @@ function efKNAuthPersonalUrls( array &$personal_urls, Title $title, SkinTemplate
 		$personal_urls['login']['href'] = $href;
 	}
 	if( isset( $personal_urls['logout'] ) ) {
-		$personal_urls['logout']['active'] = false;
-		$personal_urls['logout']['href'] = $wgKNAuthLogoutURL;
+		if( $skin->getUser()->isLoggedIn()
+			&& !$request->getSessionData( 'wsUserID' ) )
+		{
+			$personal_urls['logout']['active'] = false;
+			$personal_urls['logout']['href'] = $wgKNAuthLogoutURL;
+		}
 	}
 }
 
@@ -114,6 +118,10 @@ function efKNAuthLinkEnd( $dummy, Title $target, array $options, &$html, array &
 	}
 
 	if( $target->equals( SpecialPage::getTitleFor( 'Userlogout' ) ) ) {
-		$attribs['href'] = $wgKNAuthLogoutURL;
+		if( $skin->getUser()->isLoggedIn()
+			&& !$request->getSessionData( 'wsUserID' ) )
+		{
+			$attribs['href'] = $wgKNAuthLogoutURL;
+		}
 	}
 }
