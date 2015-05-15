@@ -118,8 +118,10 @@ function efKNAuthLinkEnd( $dummy, Title $target, array $options, &$html, array &
 	}
 
 	if( $target->equals( SpecialPage::getTitleFor( 'Userlogout' ) ) ) {
-		if( $skin->getUser()->isLoggedIn()
-			&& !$request->getSessionData( 'wsUserID' ) )
+		// workaround as we can't get a ContextSource
+		global $wgUser, $wgRequest;
+		if( $wgUser->isLoggedIn()
+			&& !$wgRequest->getSessionData( 'wsUserID' ) )
 		{
 			$attribs['href'] = $wgKNAuthLogoutURL;
 		}
