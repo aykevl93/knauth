@@ -59,6 +59,16 @@ function efKNAuthFromSession( User $user, &$result ) {
 	$user->mId = $id;
 	$user->loadFromId();
 	$result = true;
+
+	# Ensure a session exists.
+	if( session_status() !== PHP_SESSION_ACTIVE ) {
+		# Set up session: it does not exist yet.
+		wfSetupSession();
+	} elseif( !isset( $_SESSION['knauth-sessionid'] ) || $_SESSION['knauth-sessionid'] !== $sessionid ) {
+		# Refresh session ID if user changes, to prevent session fixation attacks.
+		wfResetSessionID();
+		$_SESSION['knauth-sessionid'] = $sessionid;
+	}
 }
 
 # Change the links in the top right to point to kninfra.
