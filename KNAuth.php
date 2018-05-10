@@ -6,7 +6,7 @@ $wgExtensionCredits['other'][] = array(
 	'description' => "Authenticate users against Karpe Noktem's member database.",
 	'version'  => 0,
 	'author' => 'Ayke van Laethem',
-	'url' => 'https://github.com/aykevl93/knauth',
+	'url' => 'https://github.com/aykevl/knauth',
 	'license-name' => "Public domain",
 );
 
