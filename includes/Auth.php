@@ -1,25 +1,11 @@
 <?php
 
-$wgExtensionCredits['other'][] = array(
-	'path' => __FILE__,
-	'name' => 'KNAuth',
-	'description' => "Authenticate users against Karpe Noktem's member database.",
-	'version'  => 0,
-	'author' => 'Ayke van Laethem',
-	'url' => 'https://github.com/aykevl/knauth',
-	'license-name' => "Public domain",
-);
-
 # Configuration
 $wgKNAuthSessionCookieName = 'sessionid';
 $wgKNAuthLoginURL = "/accounts/login/";
 $wgKNAuthLogoutURL = "/accounts/logout/";
 # This should be localhost or similar for performance
 $wgKNAuthVerifyURL = 'http://localhost/accounts/api/';
-
-$wgHooks['UserLoadFromSession'][] = 'efKNAuthFromSession';
-$wgHooks['PersonalUrls'][] = 'efKNAuthPersonalUrls';
-$wgHooks['LinkEnd'][] = 'efKNAuthLinkEnd';
 
 # Load user from the Django session.
 function efKNAuthFromSession( User $user, &$result ) {
